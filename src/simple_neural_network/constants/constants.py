@@ -1,0 +1,9 @@
+# Utilities
+OBJECTS_SAVED_EXTENSION = '.snn'
+
+# Activation functions
+STEP_FUNCTION_VALUE = 0
+
+# Binary classifier
+RATE_DEFAULT_VALUE = 1
+MAX_ITERATIONS_DEFAULT_VALUE = 100
