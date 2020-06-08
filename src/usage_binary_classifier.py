@@ -13,7 +13,7 @@ test_labels = CSVDataLoader.load_labels('./data/iris_virginica/iris_virginica_tr
 binary_classifier = BinaryClassifier(train_samples.shape[1])
 binary_classifier.train(train_samples, train_labels, 0.8, 20)
 
-print('BinaryClassifier system error:' + binary_classifier.calculate_error(test_samples, test_labels))
+print(binary_classifier.calculate_error(test_samples, test_labels))
 
 NeuralSystemPicker.save_neural_system('./serialized_objects/binary_classifier', binary_classifier)
 binary_classifier = NeuralSystemPicker.load_neural_system('./serialized_objects/binary_classifier.snn')
