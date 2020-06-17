@@ -21,7 +21,7 @@ class CSVDataLoader:
 
     @staticmethod
     def load_samples(path_to_csv_file, delimiter, discard_first_row):
-        return np.array(CSVDataLoader.__load_data(path_to_csv_file, delimiter, discard_first_row), dtype=np.float32)
+        return np.array(CSVDataLoader.__load_data(path_to_csv_file, delimiter, discard_first_row), dtype=np.double)
 
     @staticmethod
     def load_labels(path_to_csv_file, delimiter, discard_first_row):
