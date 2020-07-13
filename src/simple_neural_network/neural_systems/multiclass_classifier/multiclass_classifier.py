@@ -11,37 +11,37 @@ class MulticlassClassifier:
         self.__number_of_classes = number_of_classes
         self.__neurons = [Neuron(number_of_inputs, ActivationFunctionsEnum.IDENTITY_FUNCTION)
                           for _ in range(number_of_classes)]
-        self.__rate = constants.RATE_DEFAULT_VALUE
-        self.__max_iterations = constants.MAX_ITERATIONS_DEFAULT_VALUE
-        self.__miss_classified_samples_per_iteration = []
+        self.__learning_rate = constants.MULTICLASS_CLASSIFIER.get('LEARNING_RATE_DEFAULT_VALUE')
+        self.__max_epochs = constants.MULTICLASS_CLASSIFIER.get('MAX_EPOCHS_DEFAULT_VALUE')
+        self.__miss_classified_samples_per_epoch = []
 
     @property
     def number_of_classes(self):
         return self.__number_of_classes
 
     @property
-    def rate(self):
-        return self.__rate
+    def learning_rate(self):
+        return self.__learning_rate
 
     @property
-    def max_iterations(self):
-        return self.__max_iterations
+    def max_epochs(self):
+        return self.__max_epochs
 
     @property
-    def miss_classified_samples_per_iteration(self):
-        return self.__miss_classified_samples_per_iteration
+    def miss_classified_samples_per_epoch(self):
+        return self.__miss_classified_samples_per_epoch
 
     @property
     def iterations(self):
-        return len(self.__miss_classified_samples_per_iteration)
+        return len(self.__miss_classified_samples_per_epoch)
 
     @property
     def weights(self):
         return [neuron.weights for neuron in self.__neurons]
 
-    def train(self, samples, labels, rate, max_iterations):
-        self.__rate = rate
-        self.__max_iterations = max_iterations
+    def train(self, samples, labels, learning_rate, max_epochs):
+        self.__learning_rate = learning_rate
+        self.__max_epochs = max_epochs
         iteration = 0
 
         while True:
@@ -58,11 +58,11 @@ class MulticlassClassifier:
                     wrong_classifier_value = self.__neurons[classifier].calculate_output(sample)
 
                     if wrong_classifier_value > well_classifier_value:
-                        self.__neurons[classifier].weights -= (self.rate * np.append(1, sample))
+                        self.__neurons[classifier].weights -= (self.learning_rate * np.append(1, sample))
                         error = True
 
                     if error:
-                        self.__neurons[label[0]].weights += (self.rate * np.append(1, sample))
+                        self.__neurons[label[0]].weights += (self.learning_rate * np.append(1, sample))
 
                 if error:
                     miss_classified_samples += 1
@@ -70,9 +70,9 @@ class MulticlassClassifier:
                     well_classified_samples += 1
 
             iteration += 1
-            self.miss_classified_samples_per_iteration.append(miss_classified_samples)
+            self.miss_classified_samples_per_epoch.append(miss_classified_samples)
 
-            if iteration == self.max_iterations or well_classified_samples == samples.shape[0]:
+            if iteration == self.max_epochs or well_classified_samples == samples.shape[0]:
                 break
 
     def classify(self, sample):

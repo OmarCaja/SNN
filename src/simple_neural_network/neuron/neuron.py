@@ -28,6 +28,6 @@ class Neuron:
     def calculate_output(self, input_values):
         input_values = np.append(1, input_values)
         if self.activation_function is ActivationFunctionsEnum.STEP_FUNCTION:
-            return np.heaviside(self.__calculate_propagation(input_values), constants.STEP_FUNCTION_VALUE)
+            return np.heaviside(self.__calculate_propagation(input_values), constants.ACTIVATION_FUNCTIONS.get('STEP_FUNCTION_VALUE'))
         elif self.activation_function is ActivationFunctionsEnum.IDENTITY_FUNCTION:
             return self.__calculate_propagation(input_values)

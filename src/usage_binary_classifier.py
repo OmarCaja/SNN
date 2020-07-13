@@ -14,6 +14,7 @@ binary_classifier = BinaryClassifier(train_samples.shape[1])
 binary_classifier.train(train_samples, train_labels, 0.8, 20)
 
 print(binary_classifier.calculate_error(test_samples, test_labels))
+print(binary_classifier.weights)
 
 NeuralSystemPicker.save_neural_system('./serialized_objects/binary_classifier', binary_classifier)
 binary_classifier = NeuralSystemPicker.load_neural_system('./serialized_objects/binary_classifier.snn')
@@ -34,7 +35,7 @@ axes.set_xlim(4, 7.5)
 axes.set_ylim(0.5, 5.5)
 plt.show()
 
-plt.plot(binary_classifier.miss_classified_samples_per_iteration)
+plt.plot(binary_classifier.miss_classified_samples_per_epoch)
 plt.axis([0, 6, 0, 5])
 plt.ylabel('Miss classified samples')
 plt.xlabel('Iteration')
