@@ -39,3 +39,13 @@ class MultilayerNeuralNetwork:
     @property
     def weights(self):
         return [[neuron.weights for neuron in layer] for layer in self.__layers]
+
+    def forward_propagation(self, sample):
+        output_per_layer = [sample]
+
+        for layer in range(len(self.__layers)):
+            output_per_layer.append(
+                [neuron.calculate_output(output_per_layer[layer]) for neuron in self.__layers[layer]]
+            )
+
+        return output_per_layer
