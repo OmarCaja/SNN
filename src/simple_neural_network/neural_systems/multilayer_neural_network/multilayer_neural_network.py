@@ -40,7 +40,7 @@ class MultilayerNeuralNetwork:
     def weights(self):
         return [[neuron.weights for neuron in layer] for layer in self.__layers]
 
-    def forward_propagation(self, sample):
+    def __forward_propagation(self, sample):
         output_per_layer = [sample]
 
         for layer in range(len(self.__layers)):
