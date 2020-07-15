@@ -25,7 +25,7 @@ class Neuron:
     def __calculate_propagation(self, input_values):
         return np.dot(self.weights, input_values)
 
-    def __calculate_output(self, input_values):
+    def calculate_output(self, input_values):
         input_values = np.append(1, input_values)
         if self.activation_function is ActivationFunctionsEnum.STEP_FUNCTION:
             return np.heaviside(self.__calculate_propagation(input_values),
