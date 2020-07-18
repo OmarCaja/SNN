@@ -36,7 +36,7 @@ class BinaryClassifier:
     def train(self, samples, labels, learning_rate, max_epochs):
         self.__learning_rate = learning_rate
         self.__max_epochs = max_epochs
-        iteration = 0
+        epoch = 0
 
         while True:
             well_classified_samples = 0
@@ -50,10 +50,10 @@ class BinaryClassifier:
                 else:
                     well_classified_samples += 1
 
-            iteration += 1
+            epoch += 1
             self.miss_classified_samples_per_epoch.append(miss_classified_samples)
 
-            if iteration == self.max_epochs or well_classified_samples == samples.shape[0]:
+            if epoch == self.max_epochs or well_classified_samples == samples.shape[0]:
                 break
 
     def classify(self, sample):
