@@ -1,7 +1,7 @@
 import numpy as np
 
+from simple_neural_network.activation_functions.activation_functions import ActivationFunctions
 from simple_neural_network.activation_functions.activation_functions_enum import ActivationFunctionsEnum
-from simple_neural_network.constants import constants
 
 
 class Neuron:
@@ -28,7 +28,8 @@ class Neuron:
     def calculate_output(self, input_values):
         input_values = np.append(1, input_values)
         if self.activation_function is ActivationFunctionsEnum.STEP_FUNCTION:
-            return np.heaviside(self.__calculate_propagation(input_values),
-                                constants.ACTIVATION_FUNCTIONS.get('STEP_FUNCTION_VALUE'))
+            return ActivationFunctions.step_function(self.__calculate_propagation(input_values))
         elif self.activation_function is ActivationFunctionsEnum.IDENTITY_FUNCTION:
             return self.__calculate_propagation(input_values)
+        elif self.activation_function is ActivationFunctionsEnum.SIGMOID_FUNCTION:
+            return ActivationFunctions.sigmoid_function(self.__calculate_propagation(input_values))
