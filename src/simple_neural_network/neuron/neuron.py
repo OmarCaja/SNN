@@ -7,7 +7,7 @@ from simple_neural_network.activation_functions.activation_functions_enum import
 class Neuron:
 
     def __init__(self, number_of_inputs, activation_function):
-        self.__weights = np.random.random(number_of_inputs + 1)
+        self.__weights = np.random.randn(number_of_inputs + 1)
         self.__activation_function = activation_function
 
     @property
