@@ -16,7 +16,3 @@ class ActivationFunctions:
     @staticmethod
     def sigmoid_function(x):
         return 1 / (1 + np.exp(-x))
-
-    @staticmethod
-    def sigmoid_derivative_function(x):
-        return ActivationFunctions.sigmoid_function(x) * (1 - ActivationFunctions.sigmoid_function(x))

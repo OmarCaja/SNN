@@ -1,6 +1,5 @@
 import numpy as np
 
-from simple_neural_network.activation_functions.activation_functions import ActivationFunctions
 from simple_neural_network.constants import constants
 from simple_neural_network.loss_functions.loss_functions_enum import LossFunctionsEnum
 from simple_neural_network.neuron.neuron import Neuron
@@ -87,7 +86,8 @@ class MultilayerNeuralNetwork:
 
     def __calculate_output_layer_errors(self, outputs_per_layer, expected_output):
         return [(expected_output[output] - outputs_per_layer[-1][output])
-                * ActivationFunctions.sigmoid_derivative_function(outputs_per_layer[-1][output])
+                * outputs_per_layer[-1][output]
+                * (1 - outputs_per_layer[-1][output])
                 for output in range(self.number_of_classes)]
 
     def __calculate_hidden_layer_errors(self, layer, outputs_per_layer, errors_per_layer):
@@ -95,7 +95,8 @@ class MultilayerNeuralNetwork:
         return [
             (np.dot([self.__layers[layer + 1][neuron_next_layer].weights[neuron + 1]
                      for neuron_next_layer in range(len(self.__layers[layer + 1]))], errors_per_layer[0])
-             * ActivationFunctions.sigmoid_derivative_function(outputs_per_layer[layer + 1][neuron]))
+             * outputs_per_layer[layer + 1][neuron]
+             * (1 - outputs_per_layer[layer + 1][neuron]))
             for neuron in range(len(self.__layers[layer]))]
 
     def __correct_weights(self, outputs_per_layer, errors_per_layer):
