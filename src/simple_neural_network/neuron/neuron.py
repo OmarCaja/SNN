@@ -30,6 +30,6 @@ class Neuron:
         if self.activation_function is ActivationFunctionsEnum.STEP_FUNCTION:
             return ActivationFunctions.step_function(self.__calculate_propagation(input_values))
         elif self.activation_function is ActivationFunctionsEnum.IDENTITY_FUNCTION:
-            return self.__calculate_propagation(input_values)
+            return ActivationFunctions.identity_function(self.__calculate_propagation(input_values))
         elif self.activation_function is ActivationFunctionsEnum.SIGMOID_FUNCTION:
             return ActivationFunctions.sigmoid_function(self.__calculate_propagation(input_values))

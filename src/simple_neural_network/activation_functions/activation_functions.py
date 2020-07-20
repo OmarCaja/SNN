@@ -10,5 +10,9 @@ class ActivationFunctions:
         return np.heaviside(x, constants.ACTIVATION_FUNCTIONS.get('STEP_FUNCTION_VALUE'))
 
     @staticmethod
+    def identity_function(x):
+        return x
+
+    @staticmethod
     def sigmoid_function(x):
         return 1 / (1 + np.exp(-x))
