@@ -1,3 +1,5 @@
+import numpy as np
+
 from simple_neural_network.constants import constants
 from simple_neural_network.neuron.neuron import Neuron
 
@@ -25,6 +27,10 @@ class MultilayerNeuralNetwork:
         return self.__number_of_classes
 
     @property
+    def number_of_layers(self):
+        return len(self.__layers)
+
+    @property
     def learning_rate(self):
         return self.__learning_rate
 
@@ -41,11 +47,94 @@ class MultilayerNeuralNetwork:
         return [[neuron.weights for neuron in layer] for layer in self.__layers]
 
     def __forward_propagation(self, sample):
-        output_per_layer = [sample]
+        outputs_per_layer = [sample]
 
-        for layer in range(len(self.__layers)):
-            output_per_layer.append(
-                [neuron.calculate_output(output_per_layer[layer]) for neuron in self.__layers[layer]]
+        for layer in range(self.number_of_layers):
+            outputs_per_layer.append(
+                [neuron.calculate_output(outputs_per_layer[layer]) for neuron in self.__layers[layer]]
             )
 
-        return output_per_layer
+        return outputs_per_layer
+
+    def classify(self, sample):
+        results = self.__forward_propagation(sample)[-1]
+        return results.index(max(results))
+
+    def calculate_error(self, samples, labels):
+        errors = 0
+
+        for sample, label in zip(samples, labels):
+            if self.classify(sample) != label[0]:
+                errors += 1
+
+        return errors / len(labels)
+
+    def __generate_expected_output(self, label):
+        expected_output = [0] * self.number_of_classes
+        expected_output[label] = 1
+        return expected_output
+
+    def __calculate_errors_per_layer(self, outputs_per_layer, expected_output):
+        errors_per_layer = []
+        errors_per_layer.insert(0, self.__calculate_last_layer_errors(outputs_per_layer, expected_output))
+
+        for layer in range(self.number_of_layers - 2, -1, -1):
+            errors_per_layer.insert(0, self.__calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer))
+
+        return errors_per_layer
+
+    def __calculate_last_layer_errors(self, outputs_per_layer, expected_output):
+        return [(expected_output[output] - outputs_per_layer[-1][output])
+                * outputs_per_layer[-1][output]
+                * (1 - outputs_per_layer[-1][output]) for output in range(self.number_of_classes)]
+
+    def __calculate_hidden_layer_errors(self, layer, outputs_per_layer, errors_per_layer):
+
+        return [
+            (np.dot([self.__layers[layer + 1][neuron_next_layer].weights[neuron + 1]
+                     for neuron_next_layer in range(len(self.__layers[layer + 1]))], errors_per_layer[0])
+             * outputs_per_layer[layer + 1][neuron]
+             * (1 - outputs_per_layer[layer + 1][neuron]))
+            for neuron in range(len(self.__layers[layer]))]
+
+    def __correct_weights(self, outputs_per_layer, errors_per_layer):
+        outputs_per_layer_with_cte = [np.append(1, output) for output in outputs_per_layer]
+
+        for layer in range(self.number_of_layers - 1, -1, -1):
+            for neuron in range(len(self.__layers[layer])):
+                for weight in range(len(self.__layers[layer][neuron].weights)):
+                    self.__layers[layer][neuron].weights[weight] += self.learning_rate \
+                                                                    * errors_per_layer[layer][neuron] \
+                                                                    * outputs_per_layer_with_cte[layer][weight]
+
+    def __back_propagation(self, outputs_per_layer, expected_output):
+        errors_per_layer = self.__calculate_errors_per_layer(outputs_per_layer, expected_output)
+        self.__correct_weights(outputs_per_layer, errors_per_layer)
+
+    def train(self, samples, labels, learning_rate, max_epochs):
+        self.__learning_rate = learning_rate
+        self.__max_epochs = max_epochs
+        epoch = 0
+
+        while True:
+            miss_classified_samples = 0
+
+            for sample, label in zip(samples, labels):
+
+                outputs_per_layer = self.__forward_propagation(sample)
+                result = outputs_per_layer[-1].index(max(outputs_per_layer[-1]))
+
+                if result != label[0]:
+                    miss_classified_samples += 1
+
+                self.__back_propagation(outputs_per_layer,
+                                        self.__generate_expected_output(label[0]))
+
+            epoch += 1
+            self.miss_classified_samples_per_epoch.append(miss_classified_samples)
+            print(epoch)
+            print(miss_classified_samples)
+            print(miss_classified_samples / len(samples))
+
+            if epoch == self.max_epochs:
+                break
