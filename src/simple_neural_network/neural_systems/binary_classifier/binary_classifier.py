@@ -3,6 +3,7 @@ import numpy as np
 from simple_neural_network.activation_functions.activation_functions_enum import ActivationFunctionsEnum
 from simple_neural_network.constants import constants
 from simple_neural_network.neuron.neuron import Neuron
+from simple_neural_network.utilities.logger.logger import Logger
 
 
 class BinaryClassifier:
@@ -52,6 +53,8 @@ class BinaryClassifier:
 
             epoch += 1
             self.misclassified_samples_per_epoch.append(misclassified_samples)
+            Logger.print_error_rate_message(epoch, misclassified_samples, len(samples),
+                                            (misclassified_samples / len(samples)))
 
             if epoch == self.max_epochs or well_classified_samples == samples.shape[0]:
                 break

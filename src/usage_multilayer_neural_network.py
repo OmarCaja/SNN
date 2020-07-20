@@ -1,4 +1,5 @@
 from simple_neural_network.activation_functions.activation_functions_enum import ActivationFunctionsEnum
+from simple_neural_network.loss_functions.loss_functions_enum import LossFunctionsEnum
 from simple_neural_network.neural_systems.multilayer_neural_network.multilayer_neural_network import \
     MultilayerNeuralNetwork
 from simple_neural_network.utilities.data_loader.csv_data_loader import CSVDataLoader
@@ -16,9 +17,9 @@ test_samples_normalized = Normalization.z_score(test_samples)
 multilayer_neural_network = MultilayerNeuralNetwork([[784],
                                                      [20, ActivationFunctionsEnum.SIGMOID_FUNCTION],
                                                      [10, ActivationFunctionsEnum.SIGMOID_FUNCTION]])
-multilayer_neural_network.train(train_samples, train_labels, 0.1, 30)
+multilayer_neural_network.train(train_samples_normalized, train_labels, LossFunctionsEnum.MSE_FUNCTION, 0.1, 30)
 
-NeuralSystemPicker.save_neural_system('./serialized_objects/multilayer_neural_network', multilayer_neural_network)
-multilayer_neural_network = NeuralSystemPicker.load_neural_system('./serialized_objects/multilayer_neural_network.snn')
+# NeuralSystemPicker.save_neural_system('./serialized_objects/multilayer_neural_network', multilayer_neural_network)
+# multilayer_neural_network = NeuralSystemPicker.load_neural_system('./serialized_objects/multilayer_neural_network.snn')
 
-print(multilayer_neural_network.calculate_error(test_samples, test_labels))
+print(multilayer_neural_network.calculate_error_rate(test_samples_normalized, test_labels))

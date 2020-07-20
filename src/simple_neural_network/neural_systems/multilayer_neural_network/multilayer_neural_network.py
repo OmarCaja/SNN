@@ -3,6 +3,7 @@ import numpy as np
 from simple_neural_network.constants import constants
 from simple_neural_network.loss_functions.loss_functions_enum import LossFunctionsEnum
 from simple_neural_network.neuron.neuron import Neuron
+from simple_neural_network.utilities.logger.logger import Logger
 
 
 class MultilayerNeuralNetwork:
@@ -135,9 +136,8 @@ class MultilayerNeuralNetwork:
 
             epoch += 1
             self.misclassified_samples_per_epoch.append(misclassified_samples)
-            print(epoch)
-            print(misclassified_samples)
-            print(misclassified_samples / len(samples))
+            Logger.print_error_rate_message(epoch, misclassified_samples, len(samples),
+                                            (misclassified_samples / len(samples)))
 
             if epoch == self.max_epochs:
                 break

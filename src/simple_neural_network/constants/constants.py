@@ -1,6 +1,10 @@
 # Utilities
 OBJECTS_SAVED_EXTENSION = '.snn'
 
+# Logs
+ERROR_RATE = 'Epoch {epoch}: {misclassified_samples} misclassified samples out of {samples} ' \
+             '-> error rate = {error_rate:.2f}'
+
 # Activation functions
 ACTIVATION_FUNCTIONS = dict(STEP_FUNCTION_VALUE=0)
 
