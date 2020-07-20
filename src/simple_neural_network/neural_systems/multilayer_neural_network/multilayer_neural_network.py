@@ -114,7 +114,9 @@ class MultilayerNeuralNetwork:
         errors_per_layer = self.__calculate_errors_per_layer(outputs_per_layer, expected_output)
         self.__correct_weights(outputs_per_layer, errors_per_layer)
 
-    def train(self, samples, labels, loss_function, learning_rate, max_epochs):
+    def train(self, samples, labels, loss_function=LossFunctionsEnum.MSE_FUNCTION,
+              learning_rate=constants.MULTILAYER_NEURAL_NETWORK.get('LEARNING_RATE_DEFAULT_VALUE'),
+              max_epochs=constants.MULTILAYER_NEURAL_NETWORK.get('MAX_EPOCHS_DEFAULT_VALUE')):
         self.__learning_rate = learning_rate
         self.__max_epochs = max_epochs
         epoch = 0

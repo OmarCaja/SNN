@@ -12,7 +12,7 @@ train_samples_normalized = Normalization.z_score(train_samples)
 test_samples_normalized = Normalization.z_score(test_samples)
 
 multiclass_classifier = MulticlassClassifier(784, 10)
-multiclass_classifier.train(train_samples_normalized, train_labels, 0.5, 10)
+multiclass_classifier.train(train_samples_normalized, train_labels)
 
 NeuralSystemPicker.save_neural_system('./serialized_objects/multiclass_classifier', multiclass_classifier)
 multiclass_classifier = NeuralSystemPicker.load_neural_system('./serialized_objects/multiclass_classifier.snn')

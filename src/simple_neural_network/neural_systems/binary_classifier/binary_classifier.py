@@ -34,7 +34,8 @@ class BinaryClassifier:
     def weights(self):
         return self.__neuron.weights
 
-    def train(self, samples, labels, learning_rate, max_epochs):
+    def train(self, samples, labels, learning_rate=constants.BINARY_CLASSIFIER.get('LEARNING_RATE_DEFAULT_VALUE'),
+              max_epochs=constants.BINARY_CLASSIFIER.get('MAX_EPOCHS_DEFAULT_VALUE')):
         self.__learning_rate = learning_rate
         self.__max_epochs = max_epochs
         epoch = 0
