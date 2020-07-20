@@ -11,7 +11,7 @@ class BinaryClassifier:
         self.__neuron = Neuron(number_of_inputs, ActivationFunctionsEnum.STEP_FUNCTION)
         self.__learning_rate = constants.BINARY_CLASSIFIER.get('LEARNING_RATE_DEFAULT_VALUE')
         self.__max_epochs = constants.BINARY_CLASSIFIER.get('MAX_EPOCHS_DEFAULT_VALUE')
-        self.__miss_classified_samples_per_epoch = []
+        self.__misclassified_samples_per_epoch = []
 
     @property
     def learning_rate(self):
@@ -22,12 +22,12 @@ class BinaryClassifier:
         return self.__max_epochs
 
     @property
-    def miss_classified_samples_per_epoch(self):
-        return self.__miss_classified_samples_per_epoch
+    def misclassified_samples_per_epoch(self):
+        return self.__misclassified_samples_per_epoch
 
     @property
     def iterations(self):
-        return len(self.__miss_classified_samples_per_epoch)
+        return len(self.__misclassified_samples_per_epoch)
 
     @property
     def weights(self):
@@ -40,18 +40,18 @@ class BinaryClassifier:
 
         while True:
             well_classified_samples = 0
-            miss_classified_samples = 0
+            misclassified_samples = 0
 
             for sample, label in zip(samples, labels):
                 error = label - self.__neuron.calculate_output(sample)
                 if error != 0:
                     self.__neuron.weights += (self.learning_rate * error * np.append(1, sample))
-                    miss_classified_samples += 1
+                    misclassified_samples += 1
                 else:
                     well_classified_samples += 1
 
             epoch += 1
-            self.miss_classified_samples_per_epoch.append(miss_classified_samples)
+            self.misclassified_samples_per_epoch.append(misclassified_samples)
 
             if epoch == self.max_epochs or well_classified_samples == samples.shape[0]:
                 break

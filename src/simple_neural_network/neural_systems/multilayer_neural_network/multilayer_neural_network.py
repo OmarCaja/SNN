@@ -21,7 +21,7 @@ class MultilayerNeuralNetwork:
         ]
         self.__learning_rate = constants.MULTILAYER_NEURAL_NETWORK.get('LEARNING_RATE_DEFAULT_VALUE')
         self.__max_epochs = constants.MULTILAYER_NEURAL_NETWORK.get('MAX_EPOCHS_DEFAULT_VALUE')
-        self.__miss_classified_samples_per_epoch = []
+        self.__misclassified_samples_per_epoch = []
 
     @property
     def number_of_classes(self):
@@ -40,8 +40,8 @@ class MultilayerNeuralNetwork:
         return self.__max_epochs
 
     @property
-    def miss_classified_samples_per_epoch(self):
-        return self.__miss_classified_samples_per_epoch
+    def misclassified_samples_per_epoch(self):
+        return self.__misclassified_samples_per_epoch
 
     @property
     def weights(self):
@@ -119,7 +119,7 @@ class MultilayerNeuralNetwork:
         epoch = 0
 
         while True:
-            miss_classified_samples = 0
+            misclassified_samples = 0
 
             for sample, label in zip(samples, labels):
 
@@ -127,17 +127,17 @@ class MultilayerNeuralNetwork:
                 result = outputs_per_layer[-1].index(max(outputs_per_layer[-1]))
 
                 if result != label[0]:
-                    miss_classified_samples += 1
+                    misclassified_samples += 1
 
                 if loss_function is LossFunctionsEnum.MSE_FUNCTION:
                     self.__back_propagation(outputs_per_layer,
                                             self.__generate_expected_output(label[0]))
 
             epoch += 1
-            self.miss_classified_samples_per_epoch.append(miss_classified_samples)
+            self.misclassified_samples_per_epoch.append(misclassified_samples)
             print(epoch)
-            print(miss_classified_samples)
-            print(miss_classified_samples / len(samples))
+            print(misclassified_samples)
+            print(misclassified_samples / len(samples))
 
             if epoch == self.max_epochs:
                 break
