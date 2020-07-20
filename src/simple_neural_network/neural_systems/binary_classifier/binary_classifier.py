@@ -59,7 +59,7 @@ class BinaryClassifier:
     def classify(self, sample):
         return self.__neuron.calculate_output(sample)
 
-    def calculate_error(self, samples, labels):
+    def calculate_error_rate(self, samples, labels):
         errors = 0
 
         for sample, label in zip(samples, labels):

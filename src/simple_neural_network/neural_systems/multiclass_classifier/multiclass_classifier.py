@@ -79,7 +79,7 @@ class MulticlassClassifier:
         results = [neuron.calculate_output(sample) for neuron in self.__neurons]
         return results.index(max(results))
 
-    def calculate_error(self, samples, labels):
+    def calculate_error_rate(self, samples, labels):
         errors = 0
 
         for sample, label in zip(samples, labels):

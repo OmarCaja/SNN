@@ -61,7 +61,7 @@ class MultilayerNeuralNetwork:
         results = self.__forward_propagation(sample)[-1]
         return results.index(max(results))
 
-    def calculate_error(self, samples, labels):
+    def calculate_error_rate(self, samples, labels):
         errors = 0
 
         for sample, label in zip(samples, labels):

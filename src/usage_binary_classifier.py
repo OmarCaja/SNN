@@ -13,4 +13,4 @@ binary_classifier.train(train_samples, train_labels, 0.8, 20)
 NeuralSystemPicker.save_neural_system('./serialized_objects/binary_classifier', binary_classifier)
 binary_classifier = NeuralSystemPicker.load_neural_system('./serialized_objects/binary_classifier.snn')
 
-print(binary_classifier.calculate_error(test_samples, test_labels))
+print(binary_classifier.calculate_error_rate(test_samples, test_labels))

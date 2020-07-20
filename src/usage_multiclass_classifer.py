@@ -13,4 +13,4 @@ multiclass_classifier.train(train_samples, train_labels, 0.5, 20)
 NeuralSystemPicker.save_neural_system('./serialized_objects/multiclass_classifier', multiclass_classifier)
 multiclass_classifier = NeuralSystemPicker.load_neural_system('./serialized_objects/multiclass_classifier.snn')
 
-print(multiclass_classifier.calculate_error(test_samples, test_labels))
+print(multiclass_classifier.calculate_error_rate(test_samples, test_labels))
