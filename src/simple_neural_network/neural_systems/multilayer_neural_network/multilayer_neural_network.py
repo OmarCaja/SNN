@@ -76,22 +76,22 @@ class MultilayerNeuralNetwork:
         expected_output[label] = 1
         return expected_output
 
-    def __calculate_errors_per_layer(self, outputs_per_layer, expected_output):
+    def __mse_calculate_errors_per_layer(self, outputs_per_layer, expected_output):
         errors_per_layer = []
-        errors_per_layer.insert(0, self.__calculate_output_layer_errors(outputs_per_layer, expected_output))
+        errors_per_layer.insert(0, self.__mse_calculate_output_layer_errors(outputs_per_layer, expected_output))
 
         for layer in range(self.number_of_layers - 2, -1, -1):
-            errors_per_layer.insert(0, self.__calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer))
+            errors_per_layer.insert(0, self.__mse_calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer))
 
         return errors_per_layer
 
-    def __calculate_output_layer_errors(self, outputs_per_layer, expected_output):
+    def __mse_calculate_output_layer_errors(self, outputs_per_layer, expected_output):
         return [(expected_output[output] - outputs_per_layer[-1][output])
                 * outputs_per_layer[-1][output]
                 * (1 - outputs_per_layer[-1][output])
                 for output in range(self.number_of_classes)]
 
-    def __calculate_hidden_layer_errors(self, layer, outputs_per_layer, errors_per_layer):
+    def __mse_calculate_hidden_layer_errors(self, layer, outputs_per_layer, errors_per_layer):
 
         return [
             (np.dot([self.__layers[layer + 1][neuron_next_layer].weights[neuron + 1]
@@ -100,7 +100,7 @@ class MultilayerNeuralNetwork:
              * (1 - outputs_per_layer[layer + 1][neuron]))
             for neuron in range(len(self.__layers[layer]))]
 
-    def __correct_weights(self, outputs_per_layer, errors_per_layer):
+    def __mse_correct_weights(self, outputs_per_layer, errors_per_layer):
         outputs_per_layer_with_cte = [np.append(1, output) for output in outputs_per_layer]
 
         for layer in range(self.number_of_layers - 1, -1, -1):
@@ -110,9 +110,9 @@ class MultilayerNeuralNetwork:
                                                                     * errors_per_layer[layer][neuron] \
                                                                     * outputs_per_layer_with_cte[layer][weight]
 
-    def __back_propagation(self, outputs_per_layer, expected_output):
-        errors_per_layer = self.__calculate_errors_per_layer(outputs_per_layer, expected_output)
-        self.__correct_weights(outputs_per_layer, errors_per_layer)
+    def __mse_back_propagation(self, outputs_per_layer, expected_output):
+        errors_per_layer = self.__mse_calculate_errors_per_layer(outputs_per_layer, expected_output)
+        self.__mse_correct_weights(outputs_per_layer, errors_per_layer)
 
     def train(self, samples, labels, loss_function=LossFunctionsEnum.MSE_FUNCTION,
               learning_rate=constants.MULTILAYER_NEURAL_NETWORK.get('LEARNING_RATE_DEFAULT_VALUE'),
@@ -133,8 +133,8 @@ class MultilayerNeuralNetwork:
                     misclassified_samples += 1
 
                 if loss_function is LossFunctionsEnum.MSE_FUNCTION:
-                    self.__back_propagation(outputs_per_layer,
-                                            self.__generate_expected_output(label[0]))
+                    self.__mse_back_propagation(outputs_per_layer,
+                                                self.__generate_expected_output(label[0]))
 
             epoch += 1
             self.misclassified_samples_per_epoch.append(misclassified_samples)
