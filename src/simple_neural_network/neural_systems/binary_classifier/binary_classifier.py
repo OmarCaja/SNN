@@ -27,7 +27,7 @@ class BinaryClassifier:
         return self.__misclassified_samples_per_epoch
 
     @property
-    def iterations(self):
+    def epochs(self):
         return len(self.__misclassified_samples_per_epoch)
 
     @property
