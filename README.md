@@ -243,13 +243,13 @@ class NeuralSystemPicker:
 En este módulo se definen e implementan las diferentes funciones de activación que se ursarán en la librería.
 
 * `STEP_FUNCTION`: Función escalón.
-<img src="images/Step_function.png" height="400" width="400"/>
+<img src="images/Step_function.png" width="400"/>
 
 * `IDENTITY_FUNCTION`: Función identidad.
-<img src="images/Identity_function.png" height="400" width="400"/>
+<img src="images/Identity_function.png" width="400"/>
 
 * `SIGMOID_FUNCTION`: Función sigmoide.
-<img src="images/Sigmoid_function.png" height="400" width="400"/>
+<img src="images/Sigmoid_function.png" width="400"/>
 
 ### 1.4.1. Enums.
 
@@ -265,6 +265,22 @@ class ActivationFunctionsEnum(Enum):
     SIGMOID_FUNCTION = 3
 
 ```
+
+
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    <ipython-input-1-b3787525dea6> in <module>
+    ----> 1 class ActivationFunctionsEnum(Enum):
+          2     STEP_FUNCTION = 1
+          3     IDENTITY_FUNCTION = 2
+          4     SIGMOID_FUNCTION = 3
+          5 
+
+
+    NameError: name 'Enum' is not defined
+
 
 ### 1.4.2. Implementación.
 
@@ -323,7 +339,7 @@ Ubicación: `simple_neural_network/neuron/neuron.py`
 
 La clase `Neuron` es el elemento principal de esta librería, ya que formará parte de todos los sistemas neuronales que se definirán a continuación.
 
-<img src="images/Binary_classifier.png" height="600" width="600"/>
+<img src="images/Binary_classifier.png" width="600"/>
 
 Elementos que componen la clase neurona:
 
@@ -611,7 +627,7 @@ Ubicación: `simple_neural_network/neural_systems/multiclass_classifier/multicla
 Este sistema es capaz de clasificar una serie de muestras en N clases diferentes, haciendo uso de N neuronas para ello.
 Al igual que ocurría con el clasificador binario, la frontera de decisión entre dos clases sigue siendo lineal.
 
-<img src="images/Multiclass_classifier.png" height="700" width="700"/>
+<img src="images/Multiclass_classifier.png" width="700"/>
 
 Elementos que componen al clasificador binario:
 
@@ -768,8 +784,8 @@ Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos
 En primer lugar se cargan los datos `train_samples`, `train_labels`, `train_labels` y `test_labels` haciendo uso de `CSVData`.
 Posteriormente se normalizan estos haciendo uso de `Normalization.z_score(data)`.
 
-Instanciamos un `MulticlassClassifier(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes
-Entrenamos el sistema con `multiclass_classifier.train(train_samples, train_labels)`. Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`,
+Instanciamos un `MulticlassClassifier(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes.
+Entrenamos el sistema con `multiclass_classifier.train(train_samples, train_labels)`. Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`.
 tomándose los valores por defecto 1 y 10 respectivamente.
 
 Calculamos la tasa de error obtenida por el sistema haciendo uso de la función `multiclass_classifier.calculate_error_rate(test_samples, test_labels)` y lo mostramos por consola.
@@ -814,7 +830,7 @@ Ubicación: `simple_neural_network/neural_systems/multilayer_neural_network/mult
 Este sistema es capaz de clasificar una serie de muestras en N clases diferentes, haciendo uso de N neuronas para ello.
 A diferencia de lo que ocurría con el clasificador multiclase, la frontera de decisión entre dos clases ya no es lineal.
 
-<img src="images/Multilayer_neural_network.png" height="700" width="700"/>
+<img src="images/Multilayer_neural_network.png" width="700"/>
 
 Para la función del _error cuadrático medio_ (`LossFunctionsEnum.MSE_FUNCTION`) las ecuaciones de propagación hacia delante, de cálculo del error y corrección de los pesos son las siguientes.
 Para simplificar, pero sin perdida de generalidad, la figura representa una red neuronal multicapa con dos capas ocultas.
@@ -876,8 +892,8 @@ Elementos que componen al clasificador binario:
 
     * `__mse_calculate_errors_per_layer(outputs_per_layer, expected_output)`: función privada encargada de calcular los errores cometidos por cada neurona de cada una de las capas del sistema, devuelve una lista donde,
     `mse_calculate_errors_per_layer[l][n]` corresponde al error de salida obtenido por la neurona _n_ en la capa _l_.
-    Esta función llama a las funciones `__mse_calculate_output_layer_errors(outputs_per_layer, expected_output)` y `__mse_calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer)` para calcular los errores
-    generados en la última capa y las capas ocultas respectivamente. Esto es así ya que la ecuación para calcular el error de cada capa es diferente para la última capa y las ocultas.
+    La llamada a esta función desencadena la llamada de las funciones `__mse_calculate_output_layer_errors(outputs_per_layer, expected_output)` y `__mse_calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer)`
+    para calcular los errores generados en la última capa y las capas ocultas respectivamente. Esto es así ya que la ecuación para calcular el error de cada capa es diferente para la última capa y las ocultas.
 
         Parámetros:
         * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
@@ -887,8 +903,7 @@ Elementos que componen al clasificador binario:
     `mse_calculate_output_layer_errors[n]` corresponde al error de salida obtenido por la neurona _n_ de la capa de salida.
 
         Parámetros:
-        * `outputs_per_layer`: lista de valores correspondientes a las salidas obtenidas por las neuronas de cada capa.
-        Se genera en la llamada a la función `__forward_propagation(sample)`.
+        * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
         * `expected_output`: lista generada en la llamada a la función `__generate_expected_output(label)`.
 
     * `__mse_calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer)`: función privada encargada de calcular los errores cometidos por cada neurona de la capa de oculta `layer`, devuelve una lista donde,
@@ -896,25 +911,21 @@ Elementos que componen al clasificador binario:
 
         Parámetros:
         * `layer`: valor entero que hace referencia a la capa oculta.
-        * `outputs_per_layer`: lista de valores correspondientes a las salidas obtenidas por las neuronas de cada capa.
-        Se genera en la llamada a la función `__forward_propagation(sample)`.
+        * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
         * `errors_per_layer`: lista que contiene los errores cometidos por cada neurona de cada una de las capas del sistema posteriores a la capa `layer`,
         para calcular el error cometido en la capa _n_ se deben conocer los errores cometidos en la capa _n+1_.
 
     * `__mse_correct_weights(outputs_per_layer, errors_per_layer)`: función privada encargada de corregir los pesos de cada una de las neuronas que conforman la red.
 
         Parámetros:
-        * `outputs_per_layer`: lista de valores correspondientes a las salidas obtenidas por las neuronas de cada capa.
-        Se genera en la llamada a la función `__forward_propagation(sample)`.
-        * `errors_per_layer`: lista que contiene los errores cometidos por cada neurona de cada una de las capas del sistema.
-        Se genera en la llamada a la función `__mse_calculate_output_layer_errors(outputs_per_layer, expected_output)`.
+        * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
+        * `errors_per_layer`: lista generada en la llamada a la función `__mse_calculate_output_layer_errors(outputs_per_layer, expected_output)`.
 
     * `__mse_back_propagation(outputs_per_layer, expected_output)`: función privada encargada del entrenamiento del sistema para el tipo de función de coste _error cuadrático medio_ (`LossFunctionsEnum.MSE_FUNCTION`).
     Su llamada desencadena la ejecución de las funciones `__mse_calculate_errors_per_layer(outputs_per_layer, expected_output)` y `__mse_correct_weights(outputs_per_layer, errors_per_layer)`.
 
         Parámetros:
-        * `outputs_per_layer`: lista de valores correspondientes a las salidas obtenidas por las neuronas de cada capa.
-        Se genera en la llamada a la función `__forward_propagation(sample)`.
+        * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
         * `expected_output`: lista generada en la llamada a la función `__generate_expected_output(label)`.
 
     * `train(samples, labels, loss_function, learning_rate, max_epochs)`: función encargada de realizar el entrenamiento del sistema, el algoritmo utilizado es el del perceptrón con la modalidad del atributo rate para la velocidad de entrenamiento.
@@ -1096,7 +1107,7 @@ Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos
 En primer lugar se cargan los datos `train_samples`, `train_labels`, `train_labels` y `test_labels` haciendo uso de `CSVData`.
 Posteriormente se normalizan estos haciendo uso de `Normalization.z_score(data)`.
 
-Instanciamos un `MultilayerNeuralNetwork(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes
+Instanciamos un `MultilayerNeuralNetwork(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes.
 Entrenamos el sistema con `multilayer_neural_network.train(train_samples_normalized, train_labels, LossFunctionsEnum.MSE_FUNCTION, 0.1, 20)`.
 
 Calculamos la tasa de error obtenida por el sistema haciendo uso de la función `multilayer_neural_network.calculate_error_rate(test_samples_normalized, test_labels)` y lo mostramos por consola.
