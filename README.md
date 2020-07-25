@@ -266,22 +266,6 @@ class ActivationFunctionsEnum(Enum):
 
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    <ipython-input-1-b3787525dea6> in <module>
-    ----> 1 class ActivationFunctionsEnum(Enum):
-          2     STEP_FUNCTION = 1
-          3     IDENTITY_FUNCTION = 2
-          4     SIGMOID_FUNCTION = 3
-          5 
-
-
-    NameError: name 'Enum' is not defined
-
-
 ### 1.4.2. Implementación.
 
 Ubicación: `simple_neural_network/activation_functions/activation_functions.py`
