@@ -14,7 +14,7 @@ test_labels = CSVDataLoader.load_labels('./data/mnist/mnist_test_10K_labels.csv'
 train_samples_normalized = Normalization.z_score(train_samples)
 test_samples_normalized = Normalization.z_score(test_samples)
 
-multilayer_neural_network = MultilayerNeuralNetwork([[784],
+multilayer_neural_network = MultilayerNeuralNetwork([[train_samples_normalized.shape[1]],
                                                      [20, ActivationFunctionsEnum.SIGMOID_FUNCTION],
                                                      [10, ActivationFunctionsEnum.SIGMOID_FUNCTION]])
 multilayer_neural_network.train(train_samples_normalized, train_labels, LossFunctionsEnum.MSE_FUNCTION, 0.1, 20)

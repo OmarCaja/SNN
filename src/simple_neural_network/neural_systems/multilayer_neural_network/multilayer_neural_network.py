@@ -81,7 +81,8 @@ class MultilayerNeuralNetwork:
         errors_per_layer.insert(0, self.__mse_calculate_output_layer_errors(outputs_per_layer, expected_output))
 
         for layer in range(self.number_of_layers - 2, -1, -1):
-            errors_per_layer.insert(0, self.__mse_calculate_hidden_layer_errors(layer, outputs_per_layer, errors_per_layer))
+            errors_per_layer.insert(0, self.__mse_calculate_hidden_layer_errors(layer, outputs_per_layer,
+                                                                                errors_per_layer))
 
         return errors_per_layer
 

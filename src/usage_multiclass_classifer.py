@@ -11,7 +11,7 @@ test_labels = CSVDataLoader.load_labels('./data/mnist/mnist_test_10K_labels.csv'
 train_samples_normalized = Normalization.z_score(train_samples)
 test_samples_normalized = Normalization.z_score(test_samples)
 
-multiclass_classifier = MulticlassClassifier(784, 10)
+multiclass_classifier = MulticlassClassifier(train_samples_normalized.shape[1], 10)
 multiclass_classifier.train(train_samples_normalized, train_labels)
 
 NeuralSystemPicker.save_neural_system('./serialized_objects/multiclass_classifier', multiclass_classifier)
