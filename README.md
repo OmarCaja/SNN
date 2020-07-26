@@ -299,7 +299,7 @@ class ActivationFunctions:
 
 ```
 
-## 5. Funciones de medida del error.
+## 5. Funciones de coste.
 
 En este módulo se definen las diferentes funciones de coste que se utilizarán en el algoritmo de _Backpropagation_
 
