@@ -1,4 +1,4 @@
-# 1. Simple Neural Network.
+# Simple Neural Network.
 
 Simple neural network es una librería escrita en python con fines didácticos.
 
@@ -14,7 +14,7 @@ Se hará referencia a la ubicación de cada uno de los elementos dentro de la es
 Siendo `simple_neural_network` la raíz de la librería.
 
 
-## 1.1. Dependencias.
+## 1. Dependencias.
 
 Definiremos en primer lugar las dependencias necesarias para poder utilizar esta liibrería y haremos distinción entre las que ya vienen por defecto con python y las que hay que descargar de forma explícita.
 
@@ -38,7 +38,7 @@ import numpy as np
 
 ```
 
-## 1.2. Constantes.
+## 2. Constantes.
 
 Ubicación: `simple_neural_network/constants/constants.py`
 
@@ -69,16 +69,17 @@ MULTILAYER_NEURAL_NETWORK = dict(LEARNING_RATE_DEFAULT_VALUE=0.1, MAX_EPOCHS_DEF
 
 ```
 
-## 1.3 Utilidades.
-### 1.3.1. Lectura de datos desde archivos CSV.
+## 3. Utilidades.
+### 3.1. Lectura de datos desde archivos CSV.
 
 Ubicación: `simple_neural_network/utilities/data_loader/csv_data_loader.py`
 
 Una de las utilidades de la librería es un módulo para la lectura de datos desde archivos `.csv`, ya que estos achivos son muy comunes para la representación de sets de datos.
 
-Se puede observar como se dispone de dos métodos públicos estáticos capaces de generar un array de numpy tanto para datos como para etiquetas. Siendo el tipo de datos de `np.double` y `np.intc` respectivamente.
-Este array que devuelve cada método se generea a partir de los datos del archivo csv que se pasa como parámetro. Además de la ruta del archivo `.csv` que contiene los datos se deben intriducir dos parámetros más,
-el delimitador utulizado para separar los datos y si queremos omitir la primera línea del archivo, ya que en muchos casos esta primera línea se trata de la cabecera de los mismos.
+Se puede observar como se dispone de dos métodos públicos estáticos capaces de generar un array de numpy tanto para datos como para etiquetas, siendo el tipo de datos de `np.double` y `np.intc` respectivamente.
+
+Este array que devuelve cada método se generea a partir de los datos del archivo csv que se pasa como parámetro. Además de la ruta al archivo `.csv`, se deben introducir dos parámetros más,
+el delimitador utulizado para separar los datos y si queremos omitir la primera línea del archivo, en muchos casos la primera línea se trata de la cabecera de los mismos.
 
 * Funciones:
     * `__load_data(path_to_csv_file, delimiter, discard_first_row)`: función privada encargada de leer el archivo `.csv` pasado como parámetro y devolver un lista de datos.
@@ -148,7 +149,7 @@ class CSVDataLoader:
 
 ```
 
-### 1.3.2. Normalización de datos.
+### 3.2. Normalización de datos.
 
 Ubicación: `simple_neural_network/utilities/normalization/normalization.py`
 
@@ -175,7 +176,7 @@ class Normalization:
 
 ```
 
-### 1.3.3. Sistema de impresión de mensajes.
+### 3.3. Sistema de impresión de mensajes.
 
 Ubicación: `simple_neural_network/utilities/logger/logger.py`
 
@@ -201,7 +202,7 @@ class Logger:
 
 ```
 
-### 1.3.4. Guardado y carga de sistemas neuronales.
+### 3.4. Guardado y carga de sistemas neuronales.
 
 Ubicación: `simple_neural_network/utilities/neural_systems_picker/neural_systems_picker.py`
 
@@ -238,7 +239,7 @@ class NeuralSystemPicker:
 
 ```
 
-## 1.4. Funciones de activación.
+## 4. Funciones de activación.
 
 En este módulo se definen e implementan las diferentes funciones de activación que se ursarán en la librería.
 
@@ -251,7 +252,7 @@ En este módulo se definen e implementan las diferentes funciones de activación
 * `SIGMOID_FUNCTION`: Función sigmoide.
 <img src="images/Sigmoid_function.png" width="400"/>
 
-### 1.4.1. Enums.
+### 4.1. Enums.
 
 Ubicación: `simple_neural_network/activation_functions/activation_functions_enum.py`
 
@@ -266,7 +267,7 @@ class ActivationFunctionsEnum(Enum):
 
 ```
 
-### 1.4.2. Implementación.
+### 4.2. Implementación.
 
 Ubicación: `simple_neural_network/activation_functions/activation_functions.py`
 
@@ -298,11 +299,11 @@ class ActivationFunctions:
 
 ```
 
-## 1.5. Funciones de medida del error.
+## 5. Funciones de medida del error.
 
 En este módulo se definen las diferentes funciones de coste que se utilizarán en el algoritmo de _Backpropagation_
 
-### 1.5.1 Enums.
+### 5.1 Enums.
 
 Ubicación: `simple_neural_network/loss_functions/loss_functions_enum.py`
 
@@ -317,7 +318,7 @@ class LossFunctionsEnum(Enum):
 
 ```
 
-## 1.6. Perceptrón.
+## 6. Perceptrón.
 
 Ubicación: `simple_neural_network/neuron/neuron.py`
 
@@ -393,20 +394,22 @@ class Neuron:
 
 ```
 
-## 1.7. Sistemas de clasificación.
-### 1.7.1. Clasificador binario.
+## 7. Sistemas de clasificación.
+### 7.1. Clasificador binario.
 
 Ubicación: `simple_neural_network/neural_systems/binary_classifier/binary_classifier.py`
 
-Es el primer sistema neuronal definido dado que es el más básico y el que menos elementos requiere. Este sistema es capaz de definir una frontera lineal entre dos clases.
-Este sistema está compuesto de una única neurona capaz de clasificar una muestra en dos únicos valores, 0 ó 1.
+Es el primer sistema neuronal definido dado que es el más básico y el que menos elementos requiere.
+
+Este sistema es capaz de definir una frontera lineal entre dos clases y está compuesto de una única neurona capaz de clasificar una muestra en dos únicos valores, 0 ó 1.
 
 La dados unos pesos _W_ y un dato _X_ ambos de dimensión _n_, la función que define a un clasificador binario es la siguiente:
 
-$g(x)=\begin{cases}
+\begin{equation} g(x)=\begin{cases}
           1, \quad X \cdot W > 0 \\
           0, \quad X \cdot W \le 0 \\
-     \end{cases} \quad \forall X,W \in \mathbb R^n$
+     \end{cases} \quad \forall X,W \in \mathbb R^n
+\end{equation}
 
 Elementos que componen al clasificador binario:
 
@@ -525,15 +528,15 @@ class BinaryClassifier:
 
 ```
 
-#### 1.7.1.1. Ejemplo de uso del clasificador binario.
+#### 7.1.1. Ejemplo de uso del clasificador binario.
 
 Ubicación: `usage_binary_classifier.py`
 
 Uso: `python src/usage_binary_classifier.py`
 
 En este archivo se realiza un ejemplo de uso del clasificador binario con un set de datos real como es el de iris-setosa e iris-versicolor.
-Se dispone de cuatro archivos .csv en el directorio `/data/iris_virginica` estos archivos contienen la longitud de pétalos y sépalos de cada tipo de flor y su clase:
 
+Se dispone de cuatro archivos .csv en el directorio `/data/iris_virginica` estos archivos contienen la longitud de pétalos y sépalos de cada tipo de flor y su clase:
 * `iris_virginica_train_60_samples.csv` e `iris_virginica_train_60_labels.csv` son las muestras y etiquetas utilizadas para el entrenamiento del sistema.
 * `iris_virginica_test_40_samples.csv` e `iris_virginica_test_40_labels.csv` son las muestras y etiquetas utilizadas para obtener la tasa de error obtenido por el sistema una vez entrenado.
 
@@ -589,22 +592,7 @@ plt.show()
 
 ```
 
-    Epoch 1: 1 misclassified samples out of 60 -> error rate = 0.02
-    Epoch 2: 3 misclassified samples out of 60 -> error rate = 0.05
-    Epoch 3: 1 misclassified samples out of 60 -> error rate = 0.02
-    Epoch 4: 0 misclassified samples out of 60 -> error rate = 0.00
-    0.0
-
-
-
-![png](images/output_24_1.png)
-
-
-
-![png](images/output_24_2.png)
-
-
-### 1.7.2. Clasificador multiclase.
+### 7.2. Clasificador multiclase.
 
 Ubicación: `simple_neural_network/neural_systems/multiclass_classifier/multiclass_classifier.py`
 
@@ -753,15 +741,15 @@ class MulticlassClassifier:
 
 ```
 
-#### 1.7.2.1. Ejemplo de uso del clasificador multiclase.
+#### 7.2.1. Ejemplo de uso del clasificador multiclase.
 
 Ubicación: `usage_multiclass_classifer.py`
 
 Uso: `python src/usage_multiclass_classifer.py`
 
 En este archivo se realiza un ejemplo de uso del clasificador multiclase con un set de datos real como es el de mnist.
-Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
 
+Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
 * `mnist_train_40K_samples.csv` e `mnist_train_40K_labels.csv` son las muestras y etiquetas utilizadas para el entrenamiento del sistema.
 * `mnist_test_10K_samples.csv` e `mnist_test_10K_labels.csv` son las muestras y etiquetas utilizadas para obtener la tasa de error obtenido por el sistema una vez entrenado.
 
@@ -769,10 +757,10 @@ En primer lugar se cargan los datos `train_samples`, `train_labels`, `train_labe
 Posteriormente se normalizan estos haciendo uso de `Normalization.z_score(data)`.
 
 Instanciamos un `MulticlassClassifier(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes.
-Entrenamos el sistema con `multiclass_classifier.train(train_samples, train_labels)`. Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`.
+Entrenamos el sistema con `multiclass_classifier.train(train_samples_normalized, train_labels)`. Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`.
 tomándose los valores por defecto 1 y 10 respectivamente.
 
-Calculamos la tasa de error obtenida por el sistema haciendo uso de la función `multiclass_classifier.calculate_error_rate(test_samples, test_labels)` y lo mostramos por consola.
+Calculamos la tasa de error obtenida por el sistema haciendo uso de la función `multiclass_classifier.calculate_error_rate(test_samples_normalized, test_labels)` y lo mostramos por consola.
 
 
 ```python
@@ -794,20 +782,7 @@ print(multiclass_classifier.calculate_error_rate(test_samples_normalized, test_l
 
 ```
 
-    Epoch 1: 5471 misclassified samples out of 40000 -> error rate = 0.14
-    Epoch 2: 4673 misclassified samples out of 40000 -> error rate = 0.12
-    Epoch 3: 4571 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 4: 4500 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 5: 4484 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 6: 4452 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 7: 4462 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 8: 4457 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 9: 4469 misclassified samples out of 40000 -> error rate = 0.11
-    Epoch 10: 4455 misclassified samples out of 40000 -> error rate = 0.11
-    0.1129
-
-
-### 1.7.3. Red neuronal artificial multicapa.
+### 7.3. Red neuronal artificial multicapa.
 
 Ubicación: `simple_neural_network/neural_systems/multilayer_neural_network/multilayer_neural_network.py`
 
@@ -817,6 +792,7 @@ A diferencia de lo que ocurría con el clasificador multiclase, la frontera de d
 <img src="images/Multilayer_neural_network.png" width="700"/>
 
 Para la función del _error cuadrático medio_ (`LossFunctionsEnum.MSE_FUNCTION`) las ecuaciones de propagación hacia delante, de cálculo del error y corrección de los pesos son las siguientes.
+
 Para simplificar, pero sin perdida de generalidad, la figura representa una red neuronal multicapa con dos capas ocultas.
 La arquitectura y las notaciones de las ecuaciones de propagación hacia delante y hacia atrás son extensibles a cualquier número de capas ocultas.
 
@@ -1076,15 +1052,15 @@ class MultilayerNeuralNetwork:
 
 ```
 
-#### 1.7.3.1. Ejemplo de uso de una red neuronal artificial multicapa.
+#### 7.3.1. Ejemplo de uso de una red neuronal artificial multicapa.
 
 Ubicación: `usage_multilayer_neural_network.py`
 
 Uso: `python src/usage_multilayer_neural_network.py`
 
 En este archivo se realiza un ejemplo de uso de una red neuronal artificial multicapa con un set de datos real como es el de mnist.
-Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
 
+Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
 * `mnist_train_40K_samples.csv` e `mnist_train_40K_labels.csv` son las muestras y etiquetas utilizadas para el entrenamiento del sistema.
 * `mnist_test_10K_samples.csv` e `mnist_test_10K_labels.csv` son las muestras y etiquetas utilizadas para obtener la tasa de error obtenido por el sistema una vez entrenado.
 
