@@ -16,15 +16,16 @@ Siendo `simple_neural_network` la raíz de la librería.
 
 ## 1. Dependencias.
 
-Definiremos en primer lugar las dependencias necesarias para poder utilizar esta liibrería y haremos distinción entre las que ya vienen por defecto con python y las que hay que descargar de forma explícita.
+Definiremos en primer lugar las dependencias necesarias para poder utilizar esta liibrería y haremos distinción entre las que ya vienen por defecto con python
+y las que hay que descargar de forma explícita.
 
 * Paquetes de python:
     * `csv`: dedicado a la lectura de datos desde ficheros csv.
-    * `pickle`: utilizado para guardar y cargas los sistemas neuronales en disco y poder reutilizarlos.
-    * `enum`: utilizado para la definición de enums, como por ejemplo los tipos de funciones de adtivación. De esta forma es más cómodo seleccionar una función u otra sin cometer errores, otra librerías utilizan strings.
+    * `pickle`: utilizado para guardar y cargar los sistemas neuronales en disco y poder reutilizarlos.
+    * `enum`: utilizado para la definición de enums, como por ejemplo los tipos de funciones de activación.
 
 * Paquetes externos:
-    * `matplotlib`: utiliada para reprsentar información de forma gráfica.
+    * `matplotlib`: utilizada para representar información de forma gráfica.
     * `numpy`: utilizada para trabajar con matrices y poder realizar operaciones con estas de una forma más cómda y eficiente.
 
 
@@ -74,12 +75,12 @@ MULTILAYER_NEURAL_NETWORK = dict(LEARNING_RATE_DEFAULT_VALUE=0.1, MAX_EPOCHS_DEF
 
 Ubicación: `simple_neural_network/utilities/data_loader/csv_data_loader.py`
 
-Una de las utilidades de la librería es un módulo para la lectura de datos desde archivos `.csv`, ya que estos achivos son muy comunes para la representación de sets de datos.
+Una de las utilidades de la librería es un módulo para la lectura de datos desde archivos `.csv`, ya que estos archivos son muy comunes para la representación de sets de datos.
 
-Se puede observar como se dispone de dos métodos públicos estáticos capaces de generar un array de numpy tanto para datos como para etiquetas, siendo el tipo de datos de `np.double` y `np.intc` respectivamente.
+Se puede observar como se dispone de dos métodos públicos estáticos capaces de generar un array de numpy tanto para datos como para etiquetas, siendo el tipo de datos `np.double` y `np.intc` respectivamente.
 
-Este array que devuelve cada método se generea a partir de los datos del archivo csv que se pasa como parámetro. Además de la ruta al archivo `.csv`, se deben introducir dos parámetros más,
-el delimitador utulizado para separar los datos y si queremos omitir la primera línea del archivo, en muchos casos la primera línea se trata de la cabecera de los mismos.
+Este array que devuelve cada método se genere a partir de los datos del archivo csv que se pasa como parámetro. Además de la ruta al archivo `.csv`, se deben introducir dos parámetros más,
+el delimitador utilizado para separar los datos y si queremos omitir la primera línea del archivo, en muchos casos la primera línea se trata de la cabecera de los mismos.
 
 * Funciones:
     * `__load_data(path_to_csv_file, delimiter, discard_first_row)`: función privada encargada de leer el archivo `.csv` pasado como parámetro y devolver un lista de datos.
@@ -97,9 +98,9 @@ el delimitador utulizado para separar los datos y si queremos omitir la primera 
 Las dimensiones del array de datos será NxM, siendo N el número de filas y M el número de columnas del archivo `.csv`.
 Y Nx1 para el array de etiquetas.
 
-Nótese como se elimina la primera línea del archivo `.csv`, ya que contiene la descripción de las columnas.
-
 Ejemplo de uso:
+
+Nótese como se elimina la primera línea del archivo `.csv`, ya que contiene la descripción de las columnas.
 
 `samples.csv`
 ```
@@ -183,7 +184,7 @@ Ubicación: `simple_neural_network/utilities/logger/logger.py`
 En este paquete se implementarán las diferentes funciones encargadas de la impresión de los mensajes que se mostrarán por consola en el proceso de ejecución de la librería.
 
 * Funciones:
-    * `print_error_rate_message(epoch, misclassified_samples, samples, error_rate)`: formatea e imprime los datos entregados como parámetros en cada iteración del proceso de entrenamiento.
+    * `print_error_rate_message(epoch, misclassified_samples, samples, error_rate)`: formatea e imprime los datos entregados como parámetros.
 
     Parámetros:
         * `epoch`: iteración actual.
@@ -209,7 +210,7 @@ Ubicación: `simple_neural_network/utilities/neural_systems_picker/neural_system
 Otra utilidad implementada es la de guardado y carga de sistemas neuronales. Para ello se definen dos métodos estáticos para el guardado y la carga de sistema neuronales en disco.
 Se puede observar como la extensión de los archivos queda definida en la constante `OBJECTS_SAVED_EXTENSION = '.snn'`.
 
-Esto nos permite reutilizar redes ya entrenenadas para hacer un uso más eficiente de las mismas.
+Esto nos permite reutilizar redes ya entrenadas para hacer un uso más eficiente de las mismas.
 
 * Funciones:
     * `save_neural_system(file_name, neural_system)`: función encargada de guardar el sistema neuronal pasado como parámetro en disco.
@@ -218,10 +219,10 @@ Esto nos permite reutilizar redes ya entrenenadas para hacer un uso más eficien
         * `file_name`: ruta al archivo `.snn` donde se guardará el sistema neuronal.
         * `neural_system`: sistema neuronal a guardar.
 
-    * `load_neural_system(file_name)`: función encargada de cargar el archivo que se encuntra en la ruta `file_name` como un sistema neuronal en memoria.
+    * `load_neural_system(file_name)`: función encargada de cargar el archivo que se encuentra en la ruta `file_name` como un sistema neuronal en memoria.
 
     Parámetros:
-        * `file_name`: ruta al archivo `.snn` que se dese cargar como sistema neuronal.
+        * `file_name`: ruta al archivo `.snn` que se debe cargar como sistema neuronal.
 
 
 ```python
@@ -244,13 +245,13 @@ class NeuralSystemPicker:
 En este módulo se definen e implementan las diferentes funciones de activación que se ursarán en la librería.
 
 * `STEP_FUNCTION`: Función escalón.
-<img src="images/Step_function.png" width="400"/>
+<img src="doc/images/Step_function.png" width="400"/>
 
 * `IDENTITY_FUNCTION`: Función identidad.
-<img src="images/Identity_function.png" width="400"/>
+<img src="doc/images/Identity_function.png" width="400"/>
 
 * `SIGMOID_FUNCTION`: Función sigmoide.
-<img src="images/Sigmoid_function.png" width="400"/>
+<img src="doc/images/Sigmoid_function.png" width="400"/>
 
 ### 4.1. Enums.
 
@@ -271,7 +272,7 @@ class ActivationFunctionsEnum(Enum):
 
 Ubicación: `simple_neural_network/activation_functions/activation_functions.py`
 
-En este archivo se implementan las difernetes funciones de activación.
+En este archivo se implementan las diferentes funciones de activación.
 
 * Funciones:
     * `step_function(x)`: implementación de la función escalón, recibe un valor de entrada y devuelv 0 ó 1.
@@ -324,7 +325,7 @@ Ubicación: `simple_neural_network/neuron/neuron.py`
 
 La clase `Neuron` es el elemento principal de esta librería, ya que formará parte de todos los sistemas neuronales que se definirán a continuación.
 
-<img src="images/Binary_classifier.png" width="600"/>
+<img src="doc/images/Binary_classifier.png" width="600"/>
 
 Elementos que componen la clase neurona:
 
@@ -345,10 +346,10 @@ Elementos que componen la clase neurona:
     * `weights(value)`: modificador del atributo `__weights`.
 
         Parámetros:
-        * `value`: valor asigando al atributo `__weights`.
+        * `value`: valor asignado al atributo `__weights`.
 
-    * `activation_function()`: consultor del atributo `__activation_function`. En este caso no se define un modificador ya que la creación de este atributo se realiza en el constructor
-    y no debe cambiar durante la ejecución del programa.
+    * `activation_function()`: consultor del atributo `__activation_function`.
+    En este caso no se define un modificador ya que la creación de este atributo se realiza en el constructor y no debe cambiar durante la ejecución del programa.
     * `__calculate_propagation(input_values)`: función de propagación de los valores de entrada y los pesos de la neurona. En este caso se trata del producto escalar entre ambos vectores.
     Es un método privado ya que solo debe hacer uso de este la función `calculate_output(input_values)`.
 
@@ -428,14 +429,17 @@ Elementos que componen al clasificador binario:
     Es decir `__misclassified_samples_per_epoch[x]` corresponde al número de muestras mal clasificadas en la iteración x + 1.
 
 * Funciones:
-    * `learning_rate()`: consultor del atributo `__learning_rate`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)`
-    y no debe cambiar durante la ejecución.
-    * `max_epochs()`: consultor del atributo `__max_epochs`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)`
-    y no debe cambiar durante la ejecución.
-    * `misclassified_samples_per_epoch()`: consultor del atributo `__misclassified_samples_per_epoch`. En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
-    * `epochs()`: esta función nos devuelve el número total iteraciones realizadas durante el proceso de entrenamiento. Su valor se obtiene de la dimensión del atributo `__misclassified_samples_per_epoch`.
+    * `learning_rate()`: consultor del atributo `__learning_rate`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `max_epochs()`: consultor del atributo `__max_epochs`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `misclassified_samples_per_epoch()`: consultor del atributo `__misclassified_samples_per_epoch`.
+    En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
+    * `epochs()`: esta función nos devuelve el número total iteraciones realizadas durante el proceso de entrenamiento.
+    Su valor se obtiene de la dimensión del atributo `__misclassified_samples_per_epoch`.
     * `weights()`: consultor del atributo `__neuron.weights()` definido en la clase `Neuron`.
-    * `train(samples, labels, learning_rate, max_epochs)`: función encargada de realizar el entrenamiento del sistema, el algoritmo utilizado es el del perceptrón con la modalidad del atributo rate para la velocidad de entrenamiento.
+    * `train(samples, labels, learning_rate, max_epochs)`: función encargada de realizar el entrenamiento del sistema,
+    el algoritmo utilizado es el del perceptrón con la modalidad del atributo rate para la velocidad de entrenamiento.
 
         Parámetros:
         * `samples`: un `np.array` de tipo `np.double` para las muestras.
@@ -536,7 +540,7 @@ Uso: `python src/usage_binary_classifier.py`
 
 En este archivo se realiza un ejemplo de uso del clasificador binario con un set de datos real como es el de iris-setosa e iris-versicolor.
 
-Se dispone de cuatro archivos .csv en el directorio `/data/iris_virginica` estos archivos contienen la longitud de pétalos y sépalos de cada tipo de flor y su clase:
+Se dispone de cuatro archivos `.csv` en el directorio `/data/iris_virginica` estos archivos contienen la longitud de pétalos y sépalos de cada tipo de flor y su clase:
 * `iris_virginica_train_60_samples.csv` e `iris_virginica_train_60_labels.csv` son las muestras y etiquetas utilizadas para el entrenamiento del sistema.
 * `iris_virginica_test_40_samples.csv` e `iris_virginica_test_40_labels.csv` son las muestras y etiquetas utilizadas para obtener la tasa de error obtenido por el sistema una vez entrenado.
 
@@ -599,9 +603,9 @@ Ubicación: `simple_neural_network/neural_systems/multiclass_classifier/multicla
 Este sistema es capaz de clasificar una serie de muestras en N clases diferentes, haciendo uso de N neuronas para ello.
 Al igual que ocurría con el clasificador binario, la frontera de decisión entre dos clases sigue siendo lineal.
 
-<img src="images/Multiclass_classifier.png" width="700"/>
+<img src="doc/images/Multiclass_classifier.png" width="700"/>
 
-Elementos que componen al clasificador binario:
+Elementos que componen al clasificador multiclase:
 
 * Constructor:
     * `MulticlassClassifier(number_of_inputs, number_of_classes)`: constructor de un objeto de tipo `MulticlassClassifier`.
@@ -617,15 +621,20 @@ Elementos que componen al clasificador binario:
     Cada una de estas neuronas será la responsable de realizar la clasificación de cada muestra en cada una de las diferentes clases.
     * `__learning_rate`: atributo que define la velocidad de aprendizaje del algoritmo, valores próximos a cero suponen convergencias más suaves pero con más iteraciones.
     * `__max_epochs`: atributo que define la cantidad máxima de iteraciones que realizará el algoritmo en caso de que las muestras no sean linealmente separables.
-    * `__miss_classified_samples_per_epoch`: es una lista donde cada elemento corresponde al número de muestras mal clasificadas en la iteración pos + 1 de la lista.
+    * `__miss_classified_samples_per_epoch`: lista donde cada elemento corresponde al número de muestras mal clasificadas en la iteración pos + 1 de la lista.
     Es decir `__miss_classified_samples_per_epoch[x]` corresponde al número de muestras mal clasificadas en la iteración x + 1.
 
 * Funciones:
-    * `number_of_classes()`: consultor del atributo `__number_of_classes`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el constructor y no debe cambiar durante la ejecución.
-    * `learning_rate()`: consultor del atributo `__learning_rate`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
-    * `max_epochs()`: consultor del atributo `__max_epochs`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
-    * `miss_classified_samples_per_epoch()`: consultor del atributo `__miss_classified_samples_per_epoch`. En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
-    * `epochs()`: esta función nos devuelve el número total iteraciones realizadas durante el proceso de entrenamiento. Su valor se obtiene de la dimensión del atributo `__miss_classified_samples_per_epoch`.
+    * `number_of_classes()`: consultor del atributo `__number_of_classes`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el constructor y no debe cambiar durante la ejecución.
+    * `learning_rate()`: consultor del atributo `__learning_rate`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `max_epochs()`: consultor del atributo `__max_epochs`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `miss_classified_samples_per_epoch()`: consultor del atributo `__miss_classified_samples_per_epoch`.
+    En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
+    * `epochs()`: esta función nos devuelve el número total iteraciones realizadas durante el proceso de entrenamiento.
+    Su valor se obtiene de la dimensión del atributo `__miss_classified_samples_per_epoch`.
     * `weights()`: devuelve una lista con los pesos de cada una de las neuronas del atributo `__neurons`.
     * `train(samples, labels, learning_rate, max_epochs)`: función encargada de realizar el entrenamiento del sistema, el algoritmo utilizado es el del perceptrón con la modalidad del atributo rate para la velocidad de entrenamiento.
 
@@ -639,10 +648,10 @@ Elementos que componen al clasificador binario:
     El algoritmo corrige tanto los pesos de cada neurona que provoca error como el de la neurona que debría haber clasificado correctamente la muestra.
     Este algoritmo se ejecuta hasta que o bien haya clasificado correctamente todas las muestras en una misma iteración o se alcance el máximo número de iteraciones.
 
-    * `classify(sample)`: función encargada de clasificar una muestra, de vuelve un valor c perteneciente al conjunto {1, ..., C}, siendo C el número de clases.
+    * `classify(sample)`: función encargada de clasificar una muestra, devuelve un valor c perteneciente al conjunto {1, ..., C}, siendo C el número de clases.
 
         Parámetros:
-        * `sample`: un `np.array` de tipo `np.double` que representa una a una muestra.
+        * `sample`: un `np.array` de tipo `np.double` que representa a una muestra.
 
     * `calculate_error_rate(samples, labels):`: función encargada de calcular la tasa de error cometida por el sistema al clasificar las muestras entregadas como parámetros con sus respectivas etiquetas.
 
@@ -749,7 +758,7 @@ Uso: `python src/usage_multiclass_classifer.py`
 
 En este archivo se realiza un ejemplo de uso del clasificador multiclase con un set de datos real como es el de mnist.
 
-Se dispone de cuatro archivos .csv en el directorio `/data/mnist` estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
+Se dispone de cuatro archivos `.csv` en el directorio `/data/mnist`, estos archivos contienen los valores de las imágenes de 28 x 28 píxeles en escala de grises de los dígitos manuscritos comprendidos entre el 0 y el 9, ambos inclusive:
 * `mnist_train_40K_samples.csv` e `mnist_train_40K_labels.csv` son las muestras y etiquetas utilizadas para el entrenamiento del sistema.
 * `mnist_test_10K_samples.csv` e `mnist_test_10K_labels.csv` son las muestras y etiquetas utilizadas para obtener la tasa de error obtenido por el sistema una vez entrenado.
 
@@ -757,8 +766,8 @@ En primer lugar se cargan los datos `train_samples`, `train_labels`, `train_labe
 Posteriormente se normalizan estos haciendo uso de `Normalization.z_score(data)`.
 
 Instanciamos un `MulticlassClassifier(train_samples_normalized.shape[1], 10)`, donde `train_samples_normalized.shape[1] = dimensión de la primera muestra = 784` y `10` es el número de clases diferentes.
-Entrenamos el sistema con `multiclass_classifier.train(train_samples_normalized, train_labels)`. Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`.
-tomándose los valores por defecto 1 y 10 respectivamente.
+Entrenamos el sistema con `multiclass_classifier.train(train_samples_normalized, train_labels)`.
+Nótese como en este caso no se indican los valores para los parámetros `learning_rate` y `max_epochs`, tomándose los valores por defecto 1 y 10 respectivamente.
 
 Calculamos la tasa de error obtenida por el sistema haciendo uso de la función `multiclass_classifier.calculate_error_rate(test_samples_normalized, test_labels)` y lo mostramos por consola.
 
@@ -789,7 +798,7 @@ Ubicación: `simple_neural_network/neural_systems/multilayer_neural_network/mult
 Este sistema es capaz de clasificar una serie de muestras en N clases diferentes, haciendo uso de N neuronas para ello.
 A diferencia de lo que ocurría con el clasificador multiclase, la frontera de decisión entre dos clases ya no es lineal.
 
-<img src="images/Multilayer_neural_network.png" width="700"/>
+<img src="doc/images/Multilayer_neural_network.png" width="700"/>
 
 Para la función del _error cuadrático medio_ (`LossFunctionsEnum.MSE_FUNCTION`) las ecuaciones de propagación hacia delante, de cálculo del error y corrección de los pesos son las siguientes.
 
@@ -809,11 +818,11 @@ el número de clases es C y una muestra X se define a continuación:
     * Segunda capa oculta $(1 \le i \le m, 0 \le j \le n)$:
         * Error: $\delta^2_i(X) = (\sum_{r = 1}^{C}\delta^3_r(X)W^3_{ri})f'(\sum_{j = 0}^{n}W^2_{ij}S^1_j(X))$
         * Corrección de los pesos: $W^2_{ij} = W^2_{ij} + \rho\delta^2_i(X)S^1_j(X)$
-    * Capa de salida $(1 \le i \le n, 0 \le j \le t)$:
+    * Primera capa oculta $(1 \le i \le n, 0 \le j \le t)$:
         * Error: $\delta^1_i(X) = (\sum_{r = 1}^{m}\delta^2_r(X)W^2_{ri})f'(\sum_{j = 0}^{t}W^1_{ij}X_j)$
         * Corrección de los pesos: $W^1_{ij} = W^1_{ij} + \rho\delta^1_i(X)X_j$
 
-Elementos que componen al clasificador binario:
+Elementos que componen a la red neuronal artificial multicapa:
 
 * Constructor:
     * `MultilayerNeuralNetwork(layers_definition)`: constructor de un objeto de tipo `MultilayerNeuralNetwork`.
@@ -827,17 +836,21 @@ Elementos que componen al clasificador binario:
 
 * Atributos:
     * `__number_of_classes`: atributo de tipo entero que indica el número de clases del sistema.
-    * `__layers`: lista de listas de tipo Neuron, se construye a partir del atributo `layers_definition` recibido a través del constructor.
+    * `__layers`: lista de listas de tipo `Neuron`, se construye a partir del atributo `layers_definition` recibido a través del constructor.
     * `__learning_rate`: atributo que define la velocidad de aprendizaje del algoritmo, valores próximos a cero suponen convergencias más suaves pero con más iteraciones.
-    * `__max_epochs`: atributo que define la cantidad máxima de iteraciones que realizará el algoritmo en caso de que las muestras no sean linealmente separables.
+    * `__max_epochs`: atributo que define la cantidad máxima de iteraciones que realizará el algoritmo.
     * `__miss_classified_samples_per_epoch`: es una lista donde cada elemento corresponde al número de muestras mal clasificadas en la iteración pos + 1 de la lista.
     Es decir `__miss_classified_samples_per_epoch[x]` corresponde al número de muestras mal clasificadas en la iteración x + 1.
 
 * Funciones:
-    * `number_of_classes()`: consultor del atributo `__number_of_classes`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el constructor y no debe cambiar durante la ejecución.
-    * `learning_rate()`: consultor del atributo `__learning_rate`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
-    * `max_epochs()`: consultor del atributo `__max_epochs`. En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
-    * `miss_classified_samples_per_epoch()`: consultor del atributo `__miss_classified_samples_per_epoch`. En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
+    * `number_of_classes()`: consultor del atributo `__number_of_classes`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el constructor y no debe cambiar durante la ejecución.
+    * `learning_rate()`: consultor del atributo `__learning_rate`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `max_epochs()`: consultor del atributo `__max_epochs`.
+    En este caso no se define un modificador ya que la definición de este atributo se realiza en el método `train(samples, labels, learning_rate, max_epochs)` y no debe cambiar durante la ejecución.
+    * `miss_classified_samples_per_epoch()`: consultor del atributo `__miss_classified_samples_per_epoch`.
+    En este caso no se define un modificador ya que este atributo se genera en tiempo de ejecución.
     * `weights()`: devuelve una lista con los pesos de cada una de las neuronas del atributo `__layers`. Siendo `weights[l][n][w]` el peso _w_ correspondiente a la neurona _n_ de la capa _l_.
     * `__forward_propagation(sample)`: función privada encargada de calcular la propagación hacia delante de cada una de las capas de la red, devuelve una lista de valores correspondientes a las salidas obtenidas por las neuronas de cada capa.
     Siendo `forward_propagation[l][n]` el valor de slida obtenido por la neurona _n_ en la capa _l_.
@@ -857,7 +870,7 @@ Elementos que componen al clasificador binario:
 
         Parámetros:
         * `outputs_per_layer`: lista generada en la llamada a la función `__forward_propagation(sample)`.
-        * `expected_output`: lista generada en la llamada a la función `__generate_expected_output(label)`.
+        * `expected_output`: entero generado en la llamada a la función `__generate_expected_output(label)`.
 
     * `__mse_calculate_output_layer_errors(outputs_per_layer, expected_output)`: función privada encargada de calcular los errores cometidos por cada neurona de la capa de salida, devuelve una lista donde,
     `mse_calculate_output_layer_errors[n]` corresponde al error de salida obtenido por la neurona _n_ de la capa de salida.
